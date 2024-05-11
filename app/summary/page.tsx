@@ -19,27 +19,6 @@ const SummaryPage = () => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState<formDataProps | undefined>();
 
-  const generateSummary = (prompt: string) => {
-    const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-
-    if (API_KEY) {
-      const genAI = new GoogleGenerativeAI(API_KEY);
-
-      const run = async function() {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        setSummary(response.text)
-        setIsGenerated(true);
-      }
-
-      run();
-    } else {
-      console.error("Chave da API inválida.")
-    }
-  }
-
   const handleFormSubmit = ({ educationLevel, subject, content }: formDataProps) => {
     const prompt = `
       Gere um resumo conciso e informativo sobre ${subject} para um estudante de ${educationLevel}. 
@@ -56,8 +35,24 @@ const SummaryPage = () => {
       educationLevel,
       subject,
       content,
-    })
-    generateSummary(prompt)
+    });
+    
+    try {
+      fetch("/api/gemini/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setSummary(data.generatedContent);
+          setIsGenerated(true);
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

@@ -19,28 +19,6 @@ const ExercisesPage = () => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState<formDataProps | undefined>();
 
-  const generateExercises = (prompt: string) => {
-    const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-
-    if (API_KEY) {
-      const genAI = new GoogleGenerativeAI(API_KEY);
-
-      const run = async function() {
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        
-        setExercises(response.text)
-        setIsGenerated(true);
-      }
-
-      run();
-    } else {
-      console.error("Chave da API inválida.")
-    }
-  }
-
   const handleFormSubmit = ({ educationLevel, subject, content }: formDataProps) => {
     const prompt = `
       Crie uma lista de exercícios de ${subject} para um estudante de ${educationLevel}. 
@@ -60,7 +38,24 @@ const ExercisesPage = () => {
       subject,
       content,
     })
-    generateExercises(prompt)
+
+    try {
+      fetch("/api/gemini/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.response.text);
+          setExercises(data);
+          setIsGenerated(true);
+        });
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
