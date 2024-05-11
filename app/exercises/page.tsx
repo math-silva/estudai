@@ -20,7 +20,7 @@ const ExercisesPage = () => {
   const [data, setData] = useState<formDataProps | undefined>();
 
   const generateExercises = (prompt: string) => {
-    const API_KEY = process.env.GEMINI_API_KEY;
+    const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
     if (API_KEY) {
       const genAI = new GoogleGenerativeAI(API_KEY);
