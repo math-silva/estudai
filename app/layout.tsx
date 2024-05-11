@@ -9,6 +9,10 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "EstudAI",
   description: "Resumos, exercícios e flashcards personalizados com inteligência artificial para te ajudar a conquistar sua nota 10!",
+  keywords: ["Gemini", "Alura", "Estudar", "Resumos", "Exercícios", "Flashcards", "Inteligência Artificial", "Google", "Generative AI"],
+  openGraph: {
+    images: '/preview.png',
+  },
 };
 
 export default function RootLayout({
