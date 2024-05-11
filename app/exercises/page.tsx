@@ -69,7 +69,7 @@ const ExercisesPage = () => {
         <Logo />
         {
           isGenerated ? (
-            <div className="py-6 px-8 bg-white rounded-lg border-1 border-gray-200 shadow-lg">
+            <div className="py-6 px-8 w-full bg-white rounded-lg border-1 border-gray-200 shadow-lg">
               <Markdown className="prose lg:prose-lg" children={exercises} />
               <div className="mt-2 pt-6 border-t-2 border-gray-300 flex flex-col items-start">
                 <button
