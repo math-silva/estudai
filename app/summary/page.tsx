@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import Markdown from "react-markdown";
 import Link from "next/link";
+import { api } from "../lib/axios";
 
 import Form from "../components/forms/Form";
 import Logo from "../components/title/Logo";
@@ -37,22 +37,12 @@ const SummaryPage = () => {
       content,
     });
     
-    try {
-      fetch("/api/gemini/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setSummary(data.generatedContent);
-          setIsGenerated(true);
-        });
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    api.post('/api/gemini/', { prompt: prompt }).then(response => {
+      setSummary(response.data.generatedContent);
+      setIsGenerated(true);
+    }).catch((error: Error) => {
+      console.error(error);
+    });
   };
 
   return (
