@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <Link href="https://github.com/math-silva/estudai" target="_blank" className="cursor-pointer text-white flex justify-center mb-2 gap-1 group">
+    <Link href="https://github.com/math-silva/estudai" target="_blank" className="cursor-pointer text-white flex justify-center mb-2 gap-1 group mx-auto">
       <Image
         src={"/github.svg"}
         alt="Github icon"
