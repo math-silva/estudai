@@ -49,8 +49,7 @@ const ExercisesPage = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.response.text);
-          setExercises(data);
+          setExercises(data.generatedContent);
           setIsGenerated(true);
         });
     } catch (error) {
