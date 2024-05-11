@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# EstudAI
 
-## Getting Started
+EstudAI é um projeto de código aberto que visa ajudar estudantes a estudar de forma mais eficiente e organizada. A ideia é que o estudante possa gerar flashcards, resumos e lista de exercícios para estudar de forma mais eficiente.
 
-First, run the development server:
+O Projeto foi desenvolvido para a Imersão IA da Alura utilizando a API do Gemini.
+
+![EstudAI](images/homepage.png)
+
+## Tabela de conteúdos
+
+- [Autor](#autor)
+- [Tecnologias](#tecnologias)
+- [Funcionalidades](#funcionalidades)
+  - [Flashcards](#flashcards)
+  - [Resumos](#resumos)
+  - [Exercícios](#exercícios)
+- [Como rodar o projeto](#como-rodar-o-projeto)
+- [Licença](#licença)
+
+## Autor
+
+- [Matheus Silva](https://www.linkedin.com/in/matheussmsilva/)
+
+## Tecnologias
+
+- Next.js
+- React
+- TailwindCSS
+- Gemini API
+
+## Funcionalidades
+
+### Flashcards
+
+Crie flashcards automaticamente com apenas alguns cliques! Basta inserir o nome da matéria, o conteúdo que você deseja estudar e o nível de escolaridade. A inteligência artificial do Gemini se encarrega de gerar flashcards personalizados para você.
+
+[![Demonstração em GIF dos flashcards](images/flashcards.gif)](images/flashcards.gif)
+
+### Resumos
+
+Tenha acesso a resumos concisos e informativos dos seus conteúdos de estudo. Assim como nos flashcards, basta preencher um formulário com as informações da matéria e o Gemini gera um resumo completo para você.
+
+[![Demonstração em GIF dos resumos](images/summary.gif)](images/summary.gif)
+
+### Exercícios
+
+Teste seus conhecimentos e pratique com exercícios gerados automaticamente!  EstudAI cria listas de exercícios personalizadas com base no conteúdo que você está estudando.
+
+[![Demonstração em GIF dos exercícios](images/exercises.gif)](images/exercises.gif)
+
+## Como rodar o projeto
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/math-silva/estudai.git
+```
+
+### 2. Entre na pasta do projeto
+
+```bash
+cd estudai
+```
+
+### 3. Instale as dependências
+
+```bash
+npm install
+```
+
+### 4. Crie um arquivo `.env.local` na raiz do projeto e adicione a chave da API do Gemini
+
+```bash
+GEMINI_API_KEY=chave_da_api
+```
+
+Gere a chave da API do Gemini em [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+
+### 5. Rode o projeto
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Acesse o projeto em `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Licença
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
