@@ -74,7 +74,7 @@ npm install
 GEMINI_API_KEY=chave_da_api
 ```
 
-Gere a chave da API do Gemini em [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+Gere a chave da API do Google Gemini em [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
 
 ### 5. Rode o projeto
 
@@ -82,7 +82,7 @@ Gere a chave da API do Gemini em [https://aistudio.google.com/app/apikey](https:
 npm run dev
 ```
 
-6. Acesse o projeto em `http://localhost:3000`
+### 6. Acesse o projeto em `http://localhost:3000`
 
 ## Licença
 
