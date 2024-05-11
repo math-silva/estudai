@@ -1,8 +1,8 @@
 # EstudAI
 
-EstudAI é um projeto de código aberto que visa ajudar estudantes a estudar de forma mais eficiente e organizada. A ideia é que o estudante possa gerar flashcards, resumos e lista de exercícios para estudar de forma mais eficiente.
+EstudAI é um projeto que tem como objetivo ajudar estudantes a estudar de forma mais eficiente e organizada. A aplicação utiliza a API do Google Gemini e gera flashcards, resumos e listas de exercícios personalizadas com base no conteúdo, matéria e nível de escolaridade informados pelo usuário.
 
-O Projeto foi desenvolvido para a Imersão IA da Alura utilizando a API do Gemini.
+_O Projeto foi desenvolvido para a Imersão IA da Alura._
 
 ![EstudAI](images/homepage.png)
 
