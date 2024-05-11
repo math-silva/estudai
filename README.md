@@ -32,19 +32,19 @@ _O Projeto foi desenvolvido para a Imersão IA da Alura._
 
 ### Flashcards
 
-Crie flashcards automaticamente com apenas alguns cliques! Basta inserir o nome da matéria, o conteúdo que você deseja estudar e o nível de escolaridade. A inteligência artificial do Gemini se encarrega de gerar flashcards personalizados para você.
+Crie flashcards automaticamente com apenas alguns cliques! Basta inserir o nome da matéria, o conteúdo que você deseja estudar e o nível de escolaridade. A inteligência artificial do EstudAI se encarrega de gerar flashcards personalizados para você.
 
 [![Demonstração em GIF dos flashcards](images/flashcards.gif)](images/flashcards.gif)
 
 ### Resumos
 
-Tenha acesso a resumos concisos e informativos dos seus conteúdos de estudo. Assim como nos flashcards, basta preencher um formulário com as informações da matéria e o Gemini gera um resumo completo para você.
+Tenha acesso a resumos concisos e informativos dos seus conteúdos de estudo. Assim como nos flashcards, basta preencher um formulário com as informações da matéria e o EstudAI gera um resumo completo para você.
 
 [![Demonstração em GIF dos resumos](images/summary.gif)](images/summary.gif)
 
 ### Exercícios
 
-Teste seus conhecimentos e pratique com exercícios gerados automaticamente!  EstudAI cria listas de exercícios personalizadas com base no conteúdo que você está estudando.
+Teste seus conhecimentos e pratique com exercícios gerados automaticamente! O EstudAI cria listas de exercícios personalizadas com base no conteúdo que você está estudando.
 
 [![Demonstração em GIF dos exercícios](images/exercises.gif)](images/exercises.gif)
 
