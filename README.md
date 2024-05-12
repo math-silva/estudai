@@ -68,9 +68,10 @@ cd estudai
 npm install
 ```
 
-### 4. Crie um arquivo `.env.local` na raiz do projeto e adicione a chave da API do Gemini
+### 4. Crie um arquivo `.env.local` na raiz do projeto e adicione a chave da API do Gemini e o BASE_URL
 
-```bash
+```base
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 GEMINI_API_KEY=chave_da_api
 ```
 
