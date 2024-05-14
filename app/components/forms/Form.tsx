@@ -69,6 +69,7 @@ const Form = ({ name, onSubmit }: FormProps) => {
                 setSubject(event.target.value);
                 setSubjectError(false);
               }}
+              maxLength={30}
             />
             {subjectError && <p className="mt-1 text-red-500 text-sm">Campo obrigatório</p>}
           </div>
@@ -87,6 +88,7 @@ const Form = ({ name, onSubmit }: FormProps) => {
               setContent(event.target.value);
               setContentError(false);
             }}
+            maxLength={150}
           />
           {contentError && <p className="mt-1 text-red-500 text-sm">Campo obrigatório</p>}
         </div>
