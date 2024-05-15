@@ -46,12 +46,12 @@ const SummaryPage = () => {
   };
 
   return (
-    <main className="p-8 lg:py-12 lg:px-24">
+    <main className="p-4 md:p-8 lg:py-12 lg:px-24">
       <div className="flex flex-col items-center gap-8">
         <Logo />
         {
           isGenerated ? (
-            <div className="py-6 px-8 w-full bg-white rounded-lg border-1 border-gray-200 shadow-lg">
+            <div className="py-6 px-8 w-auto bg-white rounded-lg border-1 border-gray-200 shadow-lg">
               <Markdown className="prose lg:prose-lg" children={summary} />
               <div className="mt-2 pt-6 border-t-2 border-gray-300 flex flex-col items-start">
                 <button
