@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import Link from "next/link";
+import Image from "next/image";
 import { api } from "../lib/axios";
 
 import Form from "../components/forms/Form";
@@ -93,11 +94,21 @@ const ExercisesPage = () => {
           }
         </div>
       </main>
-      {showCount && (
-        <p className="text-center text-white py-4">
-          O EstudAI já gerou <span className="text-yellow-400 underline">{exerciseCount}</span> listas de exercícios!
-        </p>
-      )}
+      <div className="flex justify-center text-center text-white py-4">
+        O EstudAI já gerou 
+        <div className="mx-1.5 text-yellow-400 underline">
+          {showCount ? exerciseCount : (
+            <Image
+              src={"/dot_loading.svg"}
+              alt="Loading"
+              width={20}
+              height={20}
+              className="mt-1.5"
+            />
+          )}
+        </div> 
+        listas de exercícios!
+      </div>
     </>
   );
 }
