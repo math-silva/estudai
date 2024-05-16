@@ -22,6 +22,7 @@ const FlashcardsPage = () => {
 
   useEffect(() => {
     api.get('/analytics/total').then(response => {
+      console.log(response)
       const count = parseInt(response.data.totalUsage.flashcardCount) || 0;
       setFlashcardCount(count);
       setShowCount(true);
