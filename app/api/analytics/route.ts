@@ -1,6 +1,8 @@
 import { dailyUsages, getOrInitializeDailyUsage } from '../../lib/kv';
 import moment from 'moment-timezone';
 
+export const revalidate = 15; // revalidate every 15 seconds
+
 moment.tz.setDefault('America/Sao_Paulo');
 
 export async function GET() {
