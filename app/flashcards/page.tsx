@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { api } from "../lib/axios";
 
 import Form from "../components/forms/Form";
@@ -22,7 +23,6 @@ const FlashcardsPage = () => {
 
   useEffect(() => {
     api.get('/analytics/total').then(response => {
-      console.log(response)
       const count = parseInt(response.data.totalUsage.flashcardCount) || 0;
       setFlashcardCount(count);
       setShowCount(true);
@@ -102,11 +102,22 @@ const FlashcardsPage = () => {
           }
         </div>
       </main>
-      {showCount && (
-        <p className="text-center text-white py-4">
-          O EstudAI já gerou <span className="text-yellow-400 underline">{flashcardCount}</span> flashcards!
-        </p>
-      )}
+      
+      <div className="flex justify-center text-center text-white py-4">
+        O EstudAI já gerou 
+        <div className="mx-1.5 text-yellow-400 underline">
+          {showCount ? flashcardCount : (
+          <Image
+            src={"/dot_loading.svg"}
+            alt="Loading"
+            width={20}
+            height={20}
+            className="mt-1.5"
+          />
+          )}
+        </div> 
+        flashcards!
+      </div>
     </>
   );
 }
