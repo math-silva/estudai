@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Markdown from "react-markdown";
 import Link from "next/link";
 import Image from "next/image";
@@ -22,7 +23,11 @@ const ExercisesPage = () => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState<formDataProps | undefined>();
 
+  const router = useRouter();
+
   useEffect(() => {
+    router.refresh();
+
     api.get('/analytics/total').then(response => {
       const count = parseInt(response.data.totalUsage.exerciseCount) || 0;
       setExerciseCount(count);

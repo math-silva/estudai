@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { api } from "../lib/axios";
 
@@ -21,7 +22,11 @@ const FlashcardsPage = () => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState<formDataProps | undefined>();
 
+  const router = useRouter();
+
   useEffect(() => {
+    router.refresh();
+
     api.get('/analytics/total').then(response => {
       const count = parseInt(response.data.totalUsage.flashcardCount) || 0;
       setFlashcardCount(count);
