@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.11.1",
+    "@vercel/kv": "^1.0.1",
     "axios": "^1.6.8",
+    "moment-timezone": "^0.5.45",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",

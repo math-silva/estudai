@@ -11,8 +11,11 @@ export async function POST(req: Request) {
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    const text = response.text()
+    const text = response.text();
+    const inputTokenCount = response.usageMetadata?.promptTokenCount ?? 0;
+    const outputTokenCount = response.usageMetadata?.candidatesTokenCount ?? 0;
+    const totalTokenCount = inputTokenCount + outputTokenCount;
 
-    return Response.json({ generatedContent: text });
+    return Response.json({ generatedContent: text, tokenInfo: { inputTokenCount, outputTokenCount, totalTokenCount } });
   } 
 }
