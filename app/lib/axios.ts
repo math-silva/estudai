@@ -1,7 +1,6 @@
 import axios from "axios";
 
 axios.defaults.headers.common['Cache-Control'] = 'no-cache';
-axios.defaults.withCredentials = false;
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL || "https://projetoestudai.vercel.app/api/",
