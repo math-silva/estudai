@@ -1,6 +1,6 @@
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 import Footer from "./components/footer/Footer";
@@ -26,8 +26,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex flex-col justify-between min-h-screen bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-400 font-roboto">
           {children}
-          <Analytics />
           <Footer />
+          <Analytics />
         </div>
       </body>
     </html>
