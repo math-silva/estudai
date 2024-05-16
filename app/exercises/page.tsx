@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import Link from "next/link";
 import { api } from "../lib/axios";
@@ -15,9 +15,21 @@ interface formDataProps {
 }
 
 const ExercisesPage = () => {
+  const [exerciseCount, setExerciseCount] = useState(0);
+  const [showCount, setShowCount] = useState(false);
   const [exercises, setExercises] = useState('');
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState<formDataProps | undefined>();
+
+  useEffect(() => {
+    api.get('/analytics/total').then(response => {
+      const count = parseInt(response.data.totalUsage.exerciseCount) || 0;
+      setExerciseCount(count);
+      setShowCount(true);
+    }).catch((error: Error) => {
+      console.error(error);
+    });
+  }, []);
 
   const handleFormSubmit = async ({ educationLevel, subject, content }: formDataProps) => {
     const prompt = `
@@ -33,42 +45,60 @@ const ExercisesPage = () => {
 
       A lista deve ser numerada.
     `;
+    setData({
+      educationLevel,
+      subject,
+      content,
+    });
 
-    api.post('/api/gemini/', { prompt: prompt }).then(response => {
+    api.post('/gemini/', { prompt: prompt }).then(response => {
       setExercises(response.data.generatedContent);
       setIsGenerated(true);
+      api.post('/analytics/', { 
+        type: 'exerciseCount', 
+        count: 1, 
+        tokenInfo: response.data.tokenInfo
+      });
+      setExerciseCount(prevExerciseCount => prevExerciseCount + 1);
     }).catch((error: Error) => {
       console.error(error);
     });
   };
 
   return (
-    <main className="p-4 md:p-8 lg:py-12 lg:px-24">
-      <div className="flex flex-col items-center gap-8">
-        <Logo />
-        {
-          isGenerated ? (
-            <div className="py-6 px-8 w-auto bg-white rounded-lg border-1 border-gray-200 shadow-lg">
-              <Markdown className="prose lg:prose-lg" children={exercises} />
-              <div className="mt-2 pt-6 border-t-2 border-gray-300 flex flex-col items-start">
-                <button
-                  onClick={() => setIsGenerated(false)}
-                  className="text-blue-500 hover:text-blue-700 mb-2 hover:underline"
-                >
-                  Gerar nova lista de exercícios
-                </button>
-                <Link href={"/"} className="text-blue-500 hover:text-blue-700 hover:underline">
-                  Voltar ao início
-                </Link>
-              
+    <>
+      <main className="p-4 md:p-8 lg:py-12 lg:px-24">
+        <div className="flex flex-col items-center gap-8">
+          <Logo />
+          {
+            isGenerated ? (
+              <div className="py-6 px-8 w-auto bg-white rounded-lg border-1 border-gray-200 shadow-lg">
+                <Markdown className="prose lg:prose-lg" children={exercises} />
+                <div className="mt-2 pt-6 border-t-2 border-gray-300 flex flex-col items-start">
+                  <button
+                    onClick={() => setIsGenerated(false)}
+                    className="text-blue-500 hover:text-blue-700 mb-2 hover:underline"
+                  >
+                    Gerar nova lista de exercícios
+                  </button>
+                  <Link href={"/"} className="text-blue-500 hover:text-blue-700 hover:underline">
+                    Voltar ao início
+                  </Link>
+                
+                </div>
               </div>
-            </div>
-          ) : (
-            <Form name={"lista de exercícios"} onSubmit={handleFormSubmit} />
-          )
-        }
-      </div>
-    </main>
+            ) : (
+              <Form name={"lista de exercícios"} onSubmit={handleFormSubmit} />
+            )
+          }
+        </div>
+      </main>
+      {showCount && (
+        <p className="text-center text-white py-4">
+          O EstudAI já gerou <span className="text-yellow-400 underline">{exerciseCount}</span> listas de exercícios!
+        </p>
+      )}
+    </>
   );
 }
 
