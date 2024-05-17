@@ -16,7 +16,7 @@ const Form = ({ name, onSubmit }: FormProps) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData: { educationLevel: string; subject: string; content: string } = {
@@ -25,15 +25,22 @@ const Form = ({ name, onSubmit }: FormProps) => {
       content,
     };
 
-    if (subject.trim() !== '' && content.trim() !== '') {
+    let formIsValid = true;
+    if (subject.trim() === '') {
+      setSubjectError(true);
+      formIsValid = false;
+    }
+    if (content.trim() === '') {
+      setContentError(true);
+      formIsValid = false;
+    }
+
+    if (formIsValid) {
       setIsSubmitting(true);
-      onSubmit(formData)
-    } else {
-      if (subject.trim() === '') {
-        setSubjectError(true);
-      }
-      if (content.trim() === '') {
-        setContentError(true);
+      try {
+        await onSubmit(formData);
+      } catch (error) {
+        setIsSubmitting(false);
       }
     }
   };
@@ -94,9 +101,10 @@ const Form = ({ name, onSubmit }: FormProps) => {
         </div>
       </div>
 
-      <button 
+      <button
         type="submit" 
         className={`${isSubmitting ? "cursor-progress" : "cursor-pointer"} bg-gradient-to-tr from-pink-500 to-yellow-500 hover:from-pink-600 hover:to-yellow-600 px-5 py-3 text-white font-semibold rounded-lg`}
+        disabled={isSubmitting}
       >
         {
           isSubmitting ? (
