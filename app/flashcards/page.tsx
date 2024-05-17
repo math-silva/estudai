@@ -85,7 +85,6 @@ const FlashcardsPage = () => {
           question = question.split('-')[1];
           return { question, answer };
         });
-        console.log(flashcardList);
         return flashcardList;
       });
 
