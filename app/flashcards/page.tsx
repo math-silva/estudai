@@ -15,26 +15,34 @@ interface formDataProps {
   content: string;
 }
 
+interface FlashcardProps {
+  question: string;
+  answer: string;
+}
+
 const FlashcardsPage = () => {
   const [flashcardCount, setFlashcardCount] = useState(0);
   const [showCount, setShowCount] = useState(false);
-  const [flashcards, setFlashcards] = useState('');
+  const [flashcards, setFlashcards] = useState<FlashcardProps[]>([]);
   const [isGenerated, setIsGenerated] = useState(false);
   const [data, setData] = useState<formDataProps | undefined>();
 
   const router = useRouter();
 
   useEffect(() => {
-    router.refresh();
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/analytics/total');
+        const count = parseInt(response.data.totalUsage.flashcardCount) || 0;
+        setFlashcardCount(count);
+        setShowCount(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    api.get('/analytics/total').then(response => {
-      const count = parseInt(response.data.totalUsage.flashcardCount) || 0;
-      setFlashcardCount(count);
-      setShowCount(true);
-    }).catch((error: Error) => {
-      console.error(error);
-    });
-  }, []);
+    fetchData();
+  }, [router]);
 
   const handleFormSubmit = ({ educationLevel, subject, content }: formDataProps) => {
     const prompt = `
@@ -71,7 +79,16 @@ const FlashcardsPage = () => {
     })
 
     api.post('/gemini/', { prompt: prompt }).then(response => {
-      setFlashcards(response.data.generatedContent);
+      setFlashcards(() => {
+        const flashcardList = response.data.generatedContent.split("\n").map((flashcard: string) => {
+          let [question, answer] = flashcard.split("|");
+          question = question.split('-')[1];
+          return { question, answer };
+        });
+        console.log(flashcardList);
+        return flashcardList;
+      });
+
       const createdFlashcards = response.data.generatedContent.split('\n').length;
       setIsGenerated(true);
       api.post('/analytics/', {
@@ -93,13 +110,21 @@ const FlashcardsPage = () => {
           {
             isGenerated ? (
               <div className="flex flex-col justify-center items-center">
-                <Flashcards text={flashcards} />
-                <button
-                  className="mt-6 -mb-6 text-white hover:underline"
-                  onClick={() => setIsGenerated(false)}
-                >
-                  Gerar mais flashcards
-                </button>
+                <Flashcards flashcards={flashcards} />
+                <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-16 lg:gap-24 mt-6">
+                  <button
+                    className="text-white hover:underline"
+                    onClick={() => setIsGenerated(false)}
+                  >
+                    Gerar mais flashcards
+                  </button>
+
+                  {/* <button
+                    className="text-white hover:underline"
+                  >
+                    Exportar flashcards para o Anki
+                  </button> */}
+                </div>
               </div>
             ) : (
               <Form name={"flashcards"} onSubmit={handleFormSubmit} />

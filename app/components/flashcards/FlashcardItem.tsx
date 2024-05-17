@@ -21,7 +21,7 @@ const FrontOfCard = ({ question, handleFlip, isFlipped }: FrontOfCardProps) => {
       className={`px-4 py-8 absolute inset-0 w-full h-full flex justify-center items-center text-center bg-gradient-to-tr from-blue-700 to-blue-500 transition-all duration-100 delay-200 z-20 ${isFlipped ? 'opacity-0' : 'opacity-100'}`}
       onClick={handleFlip}  
     >
-      {question.split('-')[1]}
+      {question}
     </div>
   );
 }
