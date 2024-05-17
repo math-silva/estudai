@@ -26,16 +26,19 @@ const SummaryPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.refresh();
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/analytics/total');
+        const count = parseInt(response.data.totalUsage.summaryCount) || 0;
+        setSummaryCount(count);
+        setShowCount(true);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    api.get('/analytics/total').then(response => {
-      const count = parseInt(response.data.totalUsage.summaryCount) || 0;
-      setSummaryCount(count);
-      setShowCount(true);
-    }).catch((error: Error) => {
-      console.error(error);
-    });
-  }, []);
+    fetchData();
+  }, [router]);
 
   const handleFormSubmit = ({ educationLevel, subject, content }: formDataProps) => {
     const prompt = `
