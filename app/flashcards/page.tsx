@@ -32,8 +32,13 @@ const FlashcardsPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get('/analytics/total');
-        const count = parseInt(response.data.totalUsage.flashcardCount) || 0;
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/analytics/total`, {
+          next: {
+            revalidate: 15,
+          }
+        });
+        const data = await response.json();
+        const count = parseInt(data.totalUsage.flashcardCount) || 0;
         setFlashcardCount(count);
         setShowCount(true);
       } catch (error) {
