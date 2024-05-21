@@ -8,6 +8,7 @@ import { api } from "../lib/axios";
 import Form from "../components/forms/Form";
 import Logo from "../components/title/Logo";
 import Flashcards from "../components/flashcards/Flashcards";
+import { revalidateTag } from "next/cache";
 
 interface formDataProps {
   educationLevel: string;
@@ -34,7 +35,7 @@ const FlashcardsPage = () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/analytics/total`, {
           next: {
-            revalidate: 15,
+            tags: ['flashcardCount'],
           }
         });
         const data = await response.json();
@@ -101,6 +102,7 @@ const FlashcardsPage = () => {
         tokenInfo: response.data.tokenInfo
       });
       setFlashcardCount(prevFlashcardCount => prevFlashcardCount + createdFlashcards);
+      revalidateTag('flashcardCount');
     }).catch((error: Error) => {
       console.error(error);
     }); 

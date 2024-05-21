@@ -9,6 +9,7 @@ import { api } from "../lib/axios";
 
 import Form from "../components/forms/Form";
 import Logo from "../components/title/Logo";
+import { revalidateTag } from "next/cache";
 
 interface formDataProps {
   educationLevel: string;
@@ -30,7 +31,7 @@ const SummaryPage = () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/analytics/total`, {
           next: {
-            revalidate: 15,
+            tags: ['summaryCount'],
           }
         });
         const data = await response.json();
@@ -72,6 +73,7 @@ const SummaryPage = () => {
         tokenInfo: response.data.tokenInfo
       });
       setSummaryCount(prevSummaryCount => prevSummaryCount + 1);
+      revalidateTag('summaryCount');
     }).catch((error: Error) => {
       console.error(error);
     });
